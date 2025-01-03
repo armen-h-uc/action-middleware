@@ -1,8 +1,8 @@
 {
-    "name": "ucraft-com/action-middleware",
+    "name": "armen-h-uc/action-middleware",
     "description": "Action Middleware Package",
     "type": "library",
-    "homepage": "https://github.com/ucraft-com/action-middleware",
+    "homepage": "https://github.com/armen-h-uc/action-middleware",
     "license": "MIT",
     "autoload": {
 
