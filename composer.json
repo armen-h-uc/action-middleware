@@ -1,0 +1,54 @@
+{
+    "name": "ucraft-com/action-middleware",
+    "description": "Action Middleware Package",
+    "type": "library",
+    "homepage": "https://github.com/ucraft-com/action-middleware",
+    "license": "MIT",
+    "autoload": {
+
+        "psr-4": {
+            "ActionMiddleware\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Armen Hovhannisyan",
+            "email": "armen.hov@ucraft.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-redis": "*",
+        "guzzlehttp/guzzle": ">=7.4",
+        "illuminate/contracts": ">=10.0",
+        "illuminate/support": ">=10.0",
+        "illuminate/config": ">=10.0",
+        "illuminate/redis": ">=10.0",
+        "illuminate/validation": ">=10.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.40"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ActionMiddleware\\ActionMiddlewareServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "style": [
+            "vendor/bin/php-cs-fixer fix --allow-risky=yes"
+        ],
+        "test": [
+            "vendor/bin/phpunit --testsuite \"Unit\""
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
