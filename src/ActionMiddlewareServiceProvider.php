@@ -44,7 +44,7 @@ class ActionMiddlewareServiceProvider extends IlluminateServiceProvider
             $config = $configRepository->get('action-middleware.redis');
             $connection = (new PhpRedisConnector())->connect($config, []);
 
-            return new ActionMiddlewareGateway($connection);
+            return new ActionMiddlewareGateway($connection, $configRepository);
         });
 
         $this->app->singleton(ActionMiddlewareRunnerGatewayInterface::class, function () {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway;
 
+use Illuminate\Contracts\Config\Repository;
 use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\Exceptions\UnableToGetActionMiddlewareException;
 use Illuminate\Redis\Connections\PhpRedisConnection;
 use Throwable;
@@ -15,10 +16,17 @@ class ActionMiddlewareGateway implements ActionMiddlewareGatewayInterface
      */
     protected PhpRedisConnection $connection;
 
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    protected Repository $configRepository;
+
     public function __construct(
         PhpRedisConnection $connection,
+        Repository $configRepository,
     ) {
         $this->connection = $connection;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -28,8 +36,9 @@ class ActionMiddlewareGateway implements ActionMiddlewareGatewayInterface
     {
         try {
             $actionMiddlewareStruct = new ActionMiddlewareStruct();
+            $key = $this->configRepository->get('action-middleware.setKey');
 
-            $hashKeys = $this->connection->smembers('action-middlewares');
+            $hashKeys = $this->connection->smembers($key);
             $response = [];
 
             foreach ($hashKeys as $key) {

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 return [
-    'redis' => [
+    'redis'  => [
         'url'      => env('ACTION_MIDDLEWARE_REDIS_URL', env('REDIS_URL', '')),
         'host'     => env('ACTION_MIDDLEWARE_REDIS_HOST', '172.16.12.8'),
         'username' => env('ACTION_MIDDLEWARE_REDIS_USERNAME'),
@@ -12,4 +12,5 @@ return [
         'database' => env('ACTION_MIDDLEWARE_REDIS_DB', 7),
         'prefix'   => env('ACTION_MIDDLEWARE_REDIS_PREFIX', 'action-middleware:'),
     ],
+    'setKey' => env('ACTION_MIDDLEWARE_REDIS_SET_KEY', 'action-middlewares'),
 ];
