@@ -24,7 +24,9 @@ Or you can simply run
 
     php artisan vendor:publish --tag=action-middleware
 
+
 3. Configure your middleware settings in the published config/action-middleware.php file.
+
 
 ## Basic Usage
 
