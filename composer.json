@@ -4,8 +4,8 @@
     "type": "library",
     "homepage": "https://github.com/armen-h-uc/action-middleware",
     "license": "MIT",
+    "keywords": ["ActionMiddleware"],
     "autoload": {
-
         "psr-4": {
             "Uc\\ActionMiddleware\\": "src/"
         }
