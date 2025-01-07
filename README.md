@@ -12,17 +12,19 @@ This package provides middleware functionality for handling actions in your Lara
 ```
 
 And run composer to update your dependencies:
-
-    composer update
-
+```
+composer update
+```
 Or you can simply run
-
-    composer require ucraft-com/action-middleware
+```
+composer require ucraft-com/action-middleware
+```
 
 2. Publish the configuration file:
 
-
-    php artisan vendor:publish --tag=action-middleware
+```
+php artisan vendor:publish --tag=action-middleware
+```
 
 
 3. Configure your middleware settings in the published config/action-middleware.php file.
