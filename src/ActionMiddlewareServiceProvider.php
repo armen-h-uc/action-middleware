@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware;
+namespace Uc\ActionMiddleware;
 
-use ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareGateway;
-use ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareGatewayInterface;
-use ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\ActionMiddlewareRunnerGateway;
-use ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\ActionMiddlewareRunnerGatewayInterface;
+use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareGateway;
+use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareGatewayInterface;
+use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\ActionMiddlewareRunnerGateway;
+use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\ActionMiddlewareRunnerGatewayInterface;
 use GuzzleHttp\Client;
 use Illuminate\Redis\Connectors\PhpRedisConnector;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
@@ -25,7 +25,9 @@ class ActionMiddlewareServiceProvider extends IlluminateServiceProvider
      */
     public function boot(): void
     {
-        $this->publishes([$this->config => $this->app->configPath('action-middleware.php'),]);
+        if ($this->app->runningInConsole()) {
+            $this->publishes([$this->config => $this->app->configPath('action-middleware.php'),], 'action-middleware');
+        }
     }
 
     /**

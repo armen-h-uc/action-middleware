@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware\Gateways\ActionMiddlewareGateway;
+namespace Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway;
 
-use ActionMiddleware\Gateways\ActionMiddlewareGateway\Exceptions\UnableToGetActionMiddlewareException;
+use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\Exceptions\UnableToGetActionMiddlewareException;
 use Illuminate\Redis\Connections\PhpRedisConnection;
 use Throwable;
 
@@ -21,7 +21,9 @@ class ActionMiddlewareGateway implements ActionMiddlewareGatewayInterface
         $this->connection = $connection;
     }
 
-
+    /**
+     * @return array|null
+     */
     public function getMiddlewares(): ?array
     {
         try {
@@ -37,7 +39,6 @@ class ActionMiddlewareGateway implements ActionMiddlewareGatewayInterface
         } catch (Throwable) {
             throw new UnableToGetActionMiddlewareException();
         }
-
 
         return $response;
     }

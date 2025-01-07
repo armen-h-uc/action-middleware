@@ -1,13 +1,13 @@
 {
     "name": "armen-h-uc/action-middleware",
-    "description": "Action Middleware Package",
+    "description": "ActionMiddleware - A simple Laravel package.",
     "type": "library",
     "homepage": "https://github.com/armen-h-uc/action-middleware",
     "license": "MIT",
     "autoload": {
 
         "psr-4": {
-            "ActionMiddleware\\": "src/"
+            "Uc\\ActionMiddleware\\": "src/"
         }
     },
     "authors": [
@@ -32,7 +32,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "ActionMiddleware\\ActionMiddlewareServiceProvider"
+                "Uc\\ActionMiddleware\\ActionMiddlewareServiceProvider"
             ]
         }
     },
@@ -49,6 +49,6 @@
         "preferred-install": "dist",
         "optimize-autoloader": true
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

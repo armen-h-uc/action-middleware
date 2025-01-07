@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware\Facades;
+namespace Uc\ActionMiddleware\Facades;
 
-use ActionMiddleware\ActionMiddlewareManager;
-use ActionMiddleware\Enums\ActionType;
+use Uc\ActionMiddleware\ActionMiddlewareManager;
+use Uc\ActionMiddleware\Enums\ActionType;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Facade;
  *
  * @method static ActionMiddlewareManager run(ActionType $action, $args)
  *
- * @see     \ActionMiddleware\ActionMiddlewareManager
- * @uses    \ActionMiddleware\ActionMiddlewareManager::run()
+ * @see     \Uc\ActionMiddleware\ActionMiddlewareManager
+ * @uses    \Uc\ActionMiddleware\ActionMiddlewareManager::run()
  */
 class ActionMiddlewareRunner extends Facade
 {

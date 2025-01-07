@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware;
+namespace Uc\ActionMiddleware;
 
-use ActionMiddleware\Entities\ActionMiddleware;
-use ActionMiddleware\Enums\ActionType;
-use ActionMiddleware\Factories\ActionMiddlewareFactory;
-use ActionMiddleware\Factories\ActionMiddlewareResponseFactory;
-use ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareGatewayInterface;
-use ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\ActionMiddlewareRunnerGatewayInterface;
+use Uc\ActionMiddleware\Entities\ActionMiddleware;
+use Uc\ActionMiddleware\Enums\ActionType;
+use Uc\ActionMiddleware\Factories\ActionMiddlewareFactory;
+use Uc\ActionMiddleware\Factories\ActionMiddlewareResponseFactory;
+use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareGatewayInterface;
+use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\ActionMiddlewareRunnerGatewayInterface;
 use Illuminate\Support\Collection;
 
 class ActionMiddlewareManager
@@ -29,8 +29,8 @@ class ActionMiddlewareManager
     }
 
     /**
-     * @param \ActionMiddleware\Enums\ActionType $action
-     * @param array                              $payload
+     * @param \Uc\ActionMiddleware\Enums\ActionType $action
+     * @param array                                 $payload
      *
      * @return void
      */
@@ -60,8 +60,8 @@ class ActionMiddlewareManager
     }
 
     /**
-     * @param \ActionMiddleware\Entities\ActionMiddleware $middleware
-     * @param                                             $payload
+     * @param \Uc\ActionMiddleware\Entities\ActionMiddleware $middleware
+     * @param                                                $payload
      *
      * @return void
      */
@@ -72,18 +72,13 @@ class ActionMiddlewareManager
         $type = $middleware->getType();
 
         $responseData = $this->runnerGateway->sendRequest($endpoint, $payload, $headers);
-        //        dd($responseData);
-        $responseData = [
-            'success'  => false,
-            'messages' => ['email' => 'Please provide a valid email address.']
-        ];
 
         $this->responseFactory->createResponseByType($type, $payload, $responseData)->handle();
     }
 
     /**
-     * @param \ActionMiddleware\Entities\ActionMiddleware $middleware
-     * @param \ActionMiddleware\Enums\ActionType          $action
+     * @param \Uc\ActionMiddleware\Entities\ActionMiddleware $middleware
+     * @param \Uc\ActionMiddleware\Enums\ActionType          $action
      *
      * @return bool
      */

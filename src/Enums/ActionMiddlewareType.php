@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware\Enums;
+namespace Uc\ActionMiddleware\Enums;
 
-use ActionMiddleware\Traits\EnumToArray;
+use Uc\ActionMiddleware\Traits\EnumToArray;
 
 enum ActionMiddlewareType: string
 {

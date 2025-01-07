@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware\Factories;
+namespace Uc\ActionMiddleware\Factories;
 
-use ActionMiddleware\ActionMiddlewareResponse\ActionMiddlewareResponse;
-use ActionMiddleware\ActionMiddlewareResponse\ListenerResponse;
-use ActionMiddleware\ActionMiddlewareResponse\ValidationResponse;
-use ActionMiddleware\Enums\ActionMiddlewareType;
+use Uc\ActionMiddleware\ActionMiddlewareResponse\ActionMiddlewareResponse;
+use Uc\ActionMiddleware\ActionMiddlewareResponse\ListenerResponse;
+use Uc\ActionMiddleware\ActionMiddlewareResponse\ValidationResponse;
+use Uc\ActionMiddleware\Enums\ActionMiddlewareType;
 
 class ActionMiddlewareResponseFactory
 {
-    /**
-     * @param \ActionMiddleware\Enums\ActionMiddlewareType $type
-     * @param array                                        $inputData
-     * @param array                                        $responseData
+    /**e
      *
-     * @return \ActionMiddleware\ActionMiddlewareResponse\ActionMiddlewareResponse
+     * @param \Uc\ActionMiddleware\Enums\ActionMiddlewareType $type
+     * @param array                                           $inputData
+     * @param array                                           $responseData
+     *
+     * @return \Uc\ActionMiddleware\ActionMiddlewareResponse\ActionMiddlewareResponse
      */
     public function createResponseByType(
         ActionMiddlewareType $type,
@@ -33,7 +34,7 @@ class ActionMiddlewareResponseFactory
      * @param array $inputData
      * @param array $responseData
      *
-     * @return \ActionMiddleware\ActionMiddlewareResponse\ActionMiddlewareResponse
+     * @return \Uc\ActionMiddleware\ActionMiddlewareResponse\ActionMiddlewareResponse
      */
     public function createValidationResponse(
         array $inputData,
@@ -46,7 +47,7 @@ class ActionMiddlewareResponseFactory
      * @param array $inputData
      * @param array $responseData
      *
-     * @return \ActionMiddleware\ActionMiddlewareResponse\ActionMiddlewareResponse
+     * @return \Uc\ActionMiddleware\ActionMiddlewareResponse\ActionMiddlewareResponse
      */
     public function createListenerResponse(
         array $inputData,

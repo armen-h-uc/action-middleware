@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware\Traits;
+namespace Uc\ActionMiddleware\Traits;
 
 use function strtoupper;
 

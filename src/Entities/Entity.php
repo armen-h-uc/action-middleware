@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware\Entities;
+namespace Uc\ActionMiddleware\Entities;
 
 use Illuminate\Contracts\Support\Jsonable;
 use JsonSerializable;

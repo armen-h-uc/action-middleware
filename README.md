@@ -26,8 +26,8 @@ Or you can simply run
 
 ```php
 
-    use ActionMiddleware\ActionMiddlewareRunner;
-    use ActionMiddleware\Enums\ActionType;
+    use Uc\ActionMiddleware\ActionMiddlewareRunner;
+    use Uc\ActionMiddleware\Enums\ActionType;
     
     $action = ActionType::CREATE_CUSTOMER;
     $args = $request->all();

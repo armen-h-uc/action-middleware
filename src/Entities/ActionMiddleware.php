@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware\Entities;
+namespace Uc\ActionMiddleware\Entities;
 
-use ActionMiddleware\Enums\ActionMiddlewareType;
+use Uc\ActionMiddleware\Enums\ActionMiddlewareType;
 
 class ActionMiddleware extends Entity
 {
@@ -116,7 +116,7 @@ class ActionMiddleware extends Entity
     }
 
     /**
-     * @return ActionMiddlewareType
+     * @return \Uc\ActionMiddleware\Enums\ActionMiddlewareType
      */
     public function getType(): ActionMiddlewareType
     {
@@ -124,7 +124,7 @@ class ActionMiddleware extends Entity
     }
 
     /**
-     * @param \ActionMiddleware\Enums\ActionMiddlewareType $type
+     * @param \Uc\ActionMiddleware\Enums\ActionMiddlewareType $type
      *
      * @return void
      */

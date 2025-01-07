@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware\Factories;
+namespace Uc\ActionMiddleware\Factories;
 
-use ActionMiddleware\Entities\ActionMiddleware;
-use ActionMiddleware\Enums\ActionMiddlewareType;
+use Uc\ActionMiddleware\Entities\ActionMiddleware;
 use Illuminate\Support\Collection;
 
 class ActionMiddlewareFactory
@@ -13,7 +12,7 @@ class ActionMiddlewareFactory
     /**
      * @param array $applicationData
      *
-     * @return \ActionMiddleware\Entities\ActionMiddleware
+     * @return \Uc\ActionMiddleware\Entities\ActionMiddleware
      */
     public static function createFromResponse(array $applicationData): ActionMiddleware
     {

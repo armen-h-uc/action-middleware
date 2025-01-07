@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware\Gateways\ActionMiddlewareGateway;
+namespace Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway;
 
 interface ActionMiddlewareGatewayInterface
 {

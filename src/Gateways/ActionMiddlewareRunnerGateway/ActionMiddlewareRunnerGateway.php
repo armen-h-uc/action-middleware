@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway;
+namespace Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway;
 
-use ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\BadGatewayException;
-use ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\UnauthorizedResponseException;
+use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\BadGatewayException;
+use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\UnauthorizedResponseException;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
@@ -35,8 +35,8 @@ class ActionMiddlewareRunnerGateway implements ActionMiddlewareRunnerGatewayInte
      * @param array|null $headers
      *
      * @return array
-     * @throws \ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\BadGatewayException
-     * @throws \ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\UnauthorizedResponseException
+     * @throws \Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\BadGatewayException
+     * @throws \Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\UnauthorizedResponseException
      */
     public function sendRequest(string $url, array $data = [], ?array $headers = []): array
     {
@@ -58,8 +58,8 @@ class ActionMiddlewareRunnerGateway implements ActionMiddlewareRunnerGatewayInte
      * @param \Psr\Http\Message\ResponseInterface $response
      *
      * @return array
-     * @throws \ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\BadGatewayException
-     * @throws \ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\UnauthorizedResponseException
+     * @throws \Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\BadGatewayException
+     * @throws \Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\UnauthorizedResponseException
      */
     protected function validateResponse(ResponseInterface $response): array
     {

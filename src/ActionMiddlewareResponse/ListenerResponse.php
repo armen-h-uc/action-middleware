@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware\ActionMiddlewareResponse;
+namespace Uc\ActionMiddleware\ActionMiddlewareResponse;
 
 class ListenerResponse extends ActionMiddlewareResponse
 {

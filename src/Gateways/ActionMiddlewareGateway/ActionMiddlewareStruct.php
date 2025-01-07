@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ActionMiddleware\Gateways\ActionMiddlewareGateway;
+namespace Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway;
 
-use ActionMiddleware\Enums\ActionMiddlewareType;
+use Uc\ActionMiddleware\Enums\ActionMiddlewareType;
 use Illuminate\Contracts\Support\Arrayable;
 
 class ActionMiddlewareStruct implements Arrayable
@@ -27,7 +27,7 @@ class ActionMiddlewareStruct implements Arrayable
     protected array $actions;
 
     /**
-     * @var \ActionMiddleware\Enums\ActionMiddlewareType
+     * @var \Uc\ActionMiddleware\Enums\ActionMiddlewareType
      */
     protected ActionMiddlewareType $type;
     /**
@@ -113,7 +113,7 @@ class ActionMiddlewareStruct implements Arrayable
     }
 
     /**
-     * @return \ActionMiddleware\Enums\ActionMiddlewareType
+     * @return \Uc\ActionMiddleware\Enums\ActionMiddlewareType
      */
     public function getType(): ActionMiddlewareType
     {
@@ -121,7 +121,7 @@ class ActionMiddlewareStruct implements Arrayable
     }
 
     /**
-     * @param \ActionMiddleware\Enums\ActionMiddlewareType $type
+     * @param \Uc\ActionMiddleware\Enums\ActionMiddlewareType $type
      *
      * @return void
      */
@@ -166,6 +166,11 @@ class ActionMiddlewareStruct implements Arrayable
         $this->config = $config;
     }
 
+    /**
+     * @param array $data
+     *
+     * @return $this
+     */
     public function setFromRequestData(array $data): static
     {
         $this->alias = $data['alias'] ?? '';
@@ -181,6 +186,11 @@ class ActionMiddlewareStruct implements Arrayable
         return $this;
     }
 
+    /**
+     * @param array $data
+     *
+     * @return $this
+     */
     public function setFromResponseData(array $data): static
     {
         $this->alias = $data['alias'] ?? '';
@@ -196,6 +206,9 @@ class ActionMiddlewareStruct implements Arrayable
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
         return [
