@@ -14,6 +14,9 @@ enum ExcludedKey: string
     case PASSWORD_CONFIRMATION = 'password_confirmation';
     case TOKEN = 'token';
 
+    /**
+     * @return array
+     */
     public static function getExcludedKeys(): array
     {
         return [

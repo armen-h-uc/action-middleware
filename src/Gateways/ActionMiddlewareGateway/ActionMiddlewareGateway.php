@@ -22,7 +22,7 @@ class ActionMiddlewareGateway implements ActionMiddlewareGatewayInterface
     }
 
 
-    public function getMiddlewares($project): ?array
+    public function getMiddlewares(): ?array
     {
         try {
             $actionMiddlewareStruct = new ActionMiddlewareStruct();

@@ -11,6 +11,13 @@ use ActionMiddleware\Enums\ActionMiddlewareType;
 
 class ActionMiddlewareResponseFactory
 {
+    /**
+     * @param \ActionMiddleware\Enums\ActionMiddlewareType $type
+     * @param array                                        $inputData
+     * @param array                                        $responseData
+     *
+     * @return \ActionMiddleware\ActionMiddlewareResponse\ActionMiddlewareResponse
+     */
     public function createResponseByType(
         ActionMiddlewareType $type,
         array $inputData,

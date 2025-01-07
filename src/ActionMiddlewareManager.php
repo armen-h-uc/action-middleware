@@ -28,7 +28,12 @@ class ActionMiddlewareManager
     ) {
     }
 
-
+    /**
+     * @param \ActionMiddleware\Enums\ActionType $action
+     * @param array                              $payload
+     *
+     * @return void
+     */
     public function run(ActionType $action, array $payload): void
     {
         if (empty($payload)) {
@@ -44,7 +49,9 @@ class ActionMiddlewareManager
         }
     }
 
-
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     protected function getMiddlewares(): Collection
     {
         $applications = $this->actionMiddlewareGateway->getMiddlewares();
@@ -52,7 +59,12 @@ class ActionMiddlewareManager
         return ActionMiddlewareFactory::createCollectionFromResponse($applications);
     }
 
-
+    /**
+     * @param \ActionMiddleware\Entities\ActionMiddleware $middleware
+     * @param                                             $payload
+     *
+     * @return void
+     */
     protected function processData(ActionMiddleware $middleware, $payload): void
     {
         $endpoint = $middleware->getEndpoint();
@@ -69,6 +81,12 @@ class ActionMiddlewareManager
         $this->responseFactory->createResponseByType($type, $payload, $responseData)->handle();
     }
 
+    /**
+     * @param \ActionMiddleware\Entities\ActionMiddleware $middleware
+     * @param \ActionMiddleware\Enums\ActionType          $action
+     *
+     * @return bool
+     */
     protected function isValidAction(ActionMiddleware $middleware, ActionType $action): bool
     {
         $actions = $middleware->getActions();
