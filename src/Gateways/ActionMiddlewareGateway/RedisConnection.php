@@ -8,7 +8,7 @@ use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\Exceptions\UnableToGetA
 use Illuminate\Redis\Connections\PhpRedisConnection;
 use Throwable;
 
-class RedisClient implements ActionMiddlewareGatewayInterface
+class RedisConnection implements ActionMiddlewareGatewayInterface
 {
     /**
      * @var \Illuminate\Redis\Connections\PhpRedisConnection

@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Uc\ActionMiddleware;
 
-use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareGateway;
 use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareGatewayInterface;
-use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\RedisClient;
+use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\RedisConnection;
 use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\ActionMiddlewareRunnerGateway;
 use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\ActionMiddlewareRunnerGatewayInterface;
 use GuzzleHttp\Client;
@@ -45,7 +44,7 @@ class ActionMiddlewareServiceProvider extends IlluminateServiceProvider
             $config = $configRepository->get('action-middleware.redis');
             $connection = (new PhpRedisConnector())->connect($config, []);
 
-            return new RedisClient($connection, $configRepository->get('action-middleware.setKey'));
+            return new RedisConnection($connection, $configRepository->get('action-middleware.setKey'));
         });
 
         $this->app->singleton(ActionMiddlewareRunnerGatewayInterface::class, function () {
