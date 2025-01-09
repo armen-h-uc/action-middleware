@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway;
 
-use Illuminate\Contracts\Config\Repository;
 use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\Exceptions\UnableToGetActionMiddlewareException;
 use Illuminate\Redis\Connections\PhpRedisConnection;
 use Throwable;
 
-class ActionMiddlewareGateway implements ActionMiddlewareGatewayInterface
+class RedisClient implements ActionMiddlewareGatewayInterface
 {
     /**
      * @var \Illuminate\Redis\Connections\PhpRedisConnection
@@ -17,33 +16,35 @@ class ActionMiddlewareGateway implements ActionMiddlewareGatewayInterface
     protected PhpRedisConnection $connection;
 
     /**
-     * @var \Illuminate\Contracts\Config\Repository
+     * @var string
      */
-    protected Repository $configRepository;
+    protected string $setKey;
 
     public function __construct(
         PhpRedisConnection $connection,
-        Repository $configRepository,
+        string $setKey,
     ) {
         $this->connection = $connection;
-        $this->configRepository = $configRepository;
+        $this->setKey = $setKey;
     }
 
     /**
-     * @return array|null
+     * @return array
      */
-    public function getMiddlewares(): ?array
+    public function getMiddlewares(): array
     {
+        $response = [];
+
         try {
             $actionMiddlewareStruct = new ActionMiddlewareStruct();
-            $key = $this->configRepository->get('action-middleware.setKey');
 
-            $hashKeys = $this->connection->smembers($key);
-            $response = [];
+            $hashKeys = $this->connection->smembers($this->setKey);
 
             foreach ($hashKeys as $key) {
                 $data = $this->connection->hGetAll($key);
-                $response[] = $actionMiddlewareStruct->setFromResponseData($data)->toArray();
+                if (!empty($data)) {
+                    $response[] = $actionMiddlewareStruct->setFromResponseData($data)->toArray();
+                }
             }
         } catch (Throwable) {
             throw new UnableToGetActionMiddlewareException();

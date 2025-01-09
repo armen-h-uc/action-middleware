@@ -21,6 +21,11 @@ class ActionMiddlewareStruct implements Arrayable
      * @var string
      */
     protected string $endpoint;
+
+    /**
+     * @var bool
+     */
+    protected bool $active;
     /**
      * @var array
      */
@@ -95,6 +100,24 @@ class ActionMiddlewareStruct implements Arrayable
     }
 
     /**
+     * @return bool
+     */
+    public function getActive(): bool
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool $active
+     *
+     * @return void
+     */
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
+    }
+
+    /**
      * @return array
      */
     public function getActions(): array
@@ -164,26 +187,6 @@ class ActionMiddlewareStruct implements Arrayable
     public function setConfig(array $config): void
     {
         $this->config = $config;
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return $this
-     */
-    public function setFromRequestData(array $data): static
-    {
-        $this->alias = $data['alias'] ?? '';
-        $this->projectId = (int)($data['projectId'] ?? 0);
-        $this->endpoint = $data['endpoint'] ?? '';
-        $this->type = $data['type'] instanceof ActionMiddlewareType
-            ? $data['type']
-            : ActionMiddlewareType::from($data['type']);
-        $this->actions = json_encode($data['actions']) ?? [];
-        $this->headers = json_encode($data['headers']) ?? [];
-        $this->config = json_encode($data['config']) ?? [];
-
-        return $this;
     }
 
     /**

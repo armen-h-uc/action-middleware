@@ -14,13 +14,6 @@ use Illuminate\Support\Collection;
 
 class ActionMiddlewareManager
 {
-    /**
-     * @var array|null
-     */
-    protected ?array $payload;
-
-    protected ?string $operationName = null;
-
     public function __construct(
         protected ActionMiddlewareRunnerGatewayInterface $runnerGateway,
         protected ActionMiddlewareResponseFactory $responseFactory,
