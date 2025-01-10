@@ -49,6 +49,10 @@ class ActionMiddlewareManager
     {
         $actionMiddlewares = $this->actionMiddlewareGateway->getMiddlewares();
 
+        if(empty($actionMiddlewares)){
+            return collect();
+        }
+
         return ActionMiddlewareFactory::createCollectionFromResponse($actionMiddlewares);
     }
 
