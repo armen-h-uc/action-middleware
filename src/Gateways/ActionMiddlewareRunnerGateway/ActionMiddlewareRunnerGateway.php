@@ -41,10 +41,9 @@ class ActionMiddlewareRunnerGateway implements ActionMiddlewareRunnerGatewayInte
     public function sendRequest(string $url, array $data = [], ?array $headers = []): array
     {
         try {
-            $response = $this->httpClient->post($url, [
-                'json'    => $data,
-                'headers' => $headers
-
+            $response = $this->httpClient->request('POST', $url, [
+                'headers' => $headers,
+                'json'    => $data
             ]);
         } catch (Throwable $e) {
             throw new RuntimeException("Request failed: {$e->getMessage()}", 0, $e);

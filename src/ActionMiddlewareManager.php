@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Uc\ActionMiddleware;
 
+use RuntimeException;
+use Throwable;
 use Uc\ActionMiddleware\Entities\ActionMiddleware;
 use Uc\ActionMiddleware\Enums\ActionType;
 use Uc\ActionMiddleware\Factories\ActionMiddlewareFactory;
@@ -47,9 +49,9 @@ class ActionMiddlewareManager
      */
     protected function getMiddlewares(): Collection
     {
-        $applications = $this->actionMiddlewareGateway->getMiddlewares();
+        $actionMiddlewares = $this->actionMiddlewareGateway->getMiddlewares();
 
-        return ActionMiddlewareFactory::createCollectionFromResponse($applications);
+        return ActionMiddlewareFactory::createCollectionFromResponse($actionMiddlewares);
     }
 
     /**
@@ -63,8 +65,14 @@ class ActionMiddlewareManager
         $endpoint = $middleware->getEndpoint();
         $headers = $middleware->getHeaders();
         $type = $middleware->getType();
+        $config = $middleware->getConfig();
 
-        $responseData = $this->runnerGateway->sendRequest($endpoint, $payload, $headers);
+        $data = [
+            'payload' => $payload,
+            'config'  => $config,
+        ];
+
+        $responseData = $this->runnerGateway->sendRequest($endpoint, $data, $headers);
 
         $this->responseFactory->createResponseByType($type, $payload, $responseData)->handle();
     }

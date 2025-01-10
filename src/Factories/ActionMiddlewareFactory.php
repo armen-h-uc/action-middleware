@@ -10,36 +10,36 @@ use Illuminate\Support\Collection;
 class ActionMiddlewareFactory
 {
     /**
-     * @param array $applicationData
+     * @param array $actionMiddlewareData
      *
      * @return \Uc\ActionMiddleware\Entities\ActionMiddleware
      */
-    public static function createFromResponse(array $applicationData): ActionMiddleware
+    public static function createFromResponse(array $actionMiddlewareData): ActionMiddleware
     {
-        $actionApplication = new ActionMiddleware();
+        $actionMiddleware = new ActionMiddleware();
 
-        $actionApplication->setProjectId($applicationData['projectId']);
-        $actionApplication->setAlias($applicationData['alias']);
-        $actionApplication->setEndpoint($applicationData['endpoint']);
-        $actionApplication->setActions($applicationData['actions']);
-        $actionApplication->setType($applicationData['type']);
-        $actionApplication->setHeaders($applicationData['headers']);
-        $actionApplication->setConfig($applicationData['config'] ?? null);
+        $actionMiddleware->setProjectId($actionMiddlewareData['projectId']);
+        $actionMiddleware->setAlias($actionMiddlewareData['alias']);
+        $actionMiddleware->setEndpoint($actionMiddlewareData['endpoint']);
+        $actionMiddleware->setActions($actionMiddlewareData['actions']);
+        $actionMiddleware->setType($actionMiddlewareData['type']);
+        $actionMiddleware->setHeaders($actionMiddlewareData['headers']);
+        $actionMiddleware->setConfig($actionMiddlewareData['config'] ?? null);
 
-        return $actionApplication;
+        return $actionMiddleware;
     }
 
     /**
-     * @param array $actionApplications
+     * @param array $actionMiddlewares
      *
      * @return \Illuminate\Support\Collection
      */
-    public static function createCollectionFromResponse(array $actionApplications): Collection
+    public static function createCollectionFromResponse(array $actionMiddlewares): Collection
     {
         $collection = new Collection();
 
-        foreach ($actionApplications as $applicationData) {
-            $collection->add(self::createFromResponse($applicationData));
+        foreach ($actionMiddlewares as $actionMiddleware) {
+            $collection->add(self::createFromResponse($actionMiddleware));
         }
 
         return $collection;
