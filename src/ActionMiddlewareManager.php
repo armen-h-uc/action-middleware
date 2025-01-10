@@ -29,14 +29,11 @@ class ActionMiddlewareManager
      */
     public function run(ActionType $action, array $payload): void
     {
-        if (empty($payload)) {
-            return;
-        }
-
         $middlewares = $this->getMiddlewares();
 
+        /** @var ActionMiddleware $middleware */
         foreach ($middlewares as $middleware) {
-            if (!$this->isValidAction($middleware, $action)) {
+            if (!$this->isValidAction($middleware, $action) && $middleware->getActive()) {
                 $this->processData($middleware, $payload);
             }
         }
@@ -49,7 +46,7 @@ class ActionMiddlewareManager
     {
         $actionMiddlewares = $this->actionMiddlewareGateway->getMiddlewares();
 
-        if(empty($actionMiddlewares)){
+        if (empty($actionMiddlewares)) {
             return collect();
         }
 

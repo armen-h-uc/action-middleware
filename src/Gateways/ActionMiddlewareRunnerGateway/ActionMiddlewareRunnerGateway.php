@@ -8,7 +8,6 @@ use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\BadGat
 use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\UnauthorizedResponseException;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
-use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -35,6 +34,8 @@ class ActionMiddlewareRunnerGateway implements ActionMiddlewareRunnerGatewayInte
      * @param array|null $headers
      *
      * @return array
+     * @throws \Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\BadGatewayException
+     * @throws \Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\UnauthorizedResponseException
      */
     public function sendRequest(string $url, array $data = [], ?array $headers = []): array
     {
@@ -43,13 +44,12 @@ class ActionMiddlewareRunnerGateway implements ActionMiddlewareRunnerGatewayInte
                 'headers' => $headers,
                 'json'    => $data
             ]);
-
-            return $this->validateResponse($response);
         } catch (Throwable $e) {
-            throw new RuntimeException("Request failed: {$e->getMessage()}", 0, $e);
+            throw new BadGatewayException("Request failed: {$e->getMessage()}", Response::HTTP_BAD_GATEWAY, $e);
         }
-    }
 
+        return $this->validateResponse($response);
+    }
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response

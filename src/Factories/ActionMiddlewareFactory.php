@@ -21,9 +21,10 @@ class ActionMiddlewareFactory
         $actionMiddleware->setProjectId($actionMiddlewareData['projectId']);
         $actionMiddleware->setAlias($actionMiddlewareData['alias']);
         $actionMiddleware->setEndpoint($actionMiddlewareData['endpoint']);
-        $actionMiddleware->setActions($actionMiddlewareData['actions']);
+        $actionMiddleware->setActive($actionMiddlewareData['active']);
         $actionMiddleware->setType($actionMiddlewareData['type']);
-        $actionMiddleware->setHeaders($actionMiddlewareData['headers']);
+        $actionMiddleware->setActions($actionMiddlewareData['actions'] ?? []);
+        $actionMiddleware->setHeaders($actionMiddlewareData['headers'] ?? []);
         $actionMiddleware->setConfig($actionMiddlewareData['config'] ?? null);
 
         return $actionMiddleware;

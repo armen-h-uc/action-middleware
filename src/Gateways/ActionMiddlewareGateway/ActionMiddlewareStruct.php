@@ -13,10 +13,12 @@ class ActionMiddlewareStruct implements Arrayable
      * @var string
      */
     protected string $alias;
+
     /**
      * @var int
      */
     protected int $projectId;
+
     /**
      * @var string
      */
@@ -26,6 +28,7 @@ class ActionMiddlewareStruct implements Arrayable
      * @var bool
      */
     protected bool $active;
+
     /**
      * @var array
      */
@@ -35,15 +38,16 @@ class ActionMiddlewareStruct implements Arrayable
      * @var \Uc\ActionMiddleware\Enums\ActionMiddlewareType
      */
     protected ActionMiddlewareType $type;
+
     /**
      * @var array
      */
     protected array $headers;
+
     /**
      * @var array
      */
     protected array $config;
-
 
     /**
      * @return string
@@ -199,9 +203,7 @@ class ActionMiddlewareStruct implements Arrayable
         $this->alias = $data['alias'] ?? '';
         $this->projectId = (int)($data['projectId'] ?? 0);
         $this->endpoint = $data['endpoint'] ?? '';
-        $this->type = $data['type'] instanceof ActionMiddlewareType
-            ? $data['type']
-            : ActionMiddlewareType::from($data['type']);
+        $this->type = ActionMiddlewareType::from($data['type']);
         $this->actions = json_decode($data['actions'] ?? '[]', true) ?? [];
         $this->headers = json_decode($data['headers'] ?? '[]', true) ?? [];
         $this->config = json_decode($data['config'] ?? '[]', true) ?? [];

@@ -24,6 +24,11 @@ class ActionMiddleware extends Entity
     protected string $endpoint;
 
     /**
+     * @var bool
+     */
+    protected bool $active;
+
+    /**
      * @var array
      */
     protected array $actions;
@@ -95,6 +100,23 @@ class ActionMiddleware extends Entity
     public function setEndpoint(string $endpoint): void
     {
         $this->endpoint = $endpoint;
+    }
+    /**
+     * @return bool
+     */
+    public function getActive(): bool
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool $active
+     *
+     * @return void
+     */
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
     }
 
     /**
