@@ -35,8 +35,6 @@ class ActionMiddlewareRunnerGateway implements ActionMiddlewareRunnerGatewayInte
      * @param array|null $headers
      *
      * @return array
-     * @throws \Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\BadGatewayException
-     * @throws \Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\UnauthorizedResponseException
      */
     public function sendRequest(string $url, array $data = [], ?array $headers = []): array
     {
@@ -45,11 +43,11 @@ class ActionMiddlewareRunnerGateway implements ActionMiddlewareRunnerGatewayInte
                 'headers' => $headers,
                 'json'    => $data
             ]);
+
+            return $this->validateResponse($response);
         } catch (Throwable $e) {
             throw new RuntimeException("Request failed: {$e->getMessage()}", 0, $e);
         }
-
-        return $this->validateResponse($response);
     }
 
 
