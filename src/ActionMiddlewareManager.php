@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Uc\ActionMiddleware;
 
-use RuntimeException;
-use Throwable;
 use Uc\ActionMiddleware\Entities\ActionMiddleware;
 use Uc\ActionMiddleware\Enums\ActionType;
 use Uc\ActionMiddleware\Factories\ActionMiddlewareFactory;
