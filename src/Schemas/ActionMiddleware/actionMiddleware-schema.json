@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "alias": {
+      "type": "string"
+    },
+    "projectId": {
+      "type": "integer"
+    },
+    "endpoint": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "type": {
+      "type": "string",
+      "enum": ["create_customer"]
+    },
+    "headers": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "config": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": ["alias", "projectId", "endpoint", "active", "type", "actions", "headers", "config"]
+}

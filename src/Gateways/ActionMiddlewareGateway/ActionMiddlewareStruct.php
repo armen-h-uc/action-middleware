@@ -221,6 +221,7 @@ class ActionMiddlewareStruct implements Arrayable
             'alias'     => $this->alias,
             'projectId' => $this->projectId,
             'endpoint'  => $this->endpoint,
+            'active'    => $this->active,
             'type'      => $this->type,
             'actions'   => $this->actions,
             'headers'   => $this->headers,
