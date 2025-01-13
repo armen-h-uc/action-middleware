@@ -6,6 +6,7 @@ namespace Uc\ActionMiddleware;
 
 use Uc\ActionMiddleware\Entities\ActionMiddleware;
 use Uc\ActionMiddleware\Enums\ActionType;
+use Uc\ActionMiddleware\Enums\ExcludedKey;
 use Uc\ActionMiddleware\Factories\ActionMiddlewareFactory;
 use Uc\ActionMiddleware\Factories\ActionMiddlewareResponseFactory;
 use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareGatewayInterface;
@@ -24,17 +25,23 @@ class ActionMiddlewareManager
     /**
      * @param \Uc\ActionMiddleware\Enums\ActionType $action
      * @param array                                 $payload
+     * @param string|array                          $allowedKeys
      *
      * @return void
      */
-    public function run(ActionType $action, array $payload): void
-    {
+    public function run(
+        ActionType $action,
+        array $payload,
+        string|array $allowedKeys = '*'
+    ): void {
+        $filteredPayload = $this->payloadFilter($payload, $allowedKeys);
+
         $middlewares = $this->getMiddlewares();
 
         /** @var ActionMiddleware $middleware */
         foreach ($middlewares as $middleware) {
             if (!$this->isValidAction($middleware, $action) && $middleware->getActive()) {
-                $this->processData($middleware, $payload);
+                $this->processData($middleware, $filteredPayload);
             }
         }
     }
@@ -74,6 +81,28 @@ class ActionMiddlewareManager
         $responseData = $this->runnerGateway->sendRequest($endpoint, $data, $headers);
 
         $this->responseFactory->createResponseByType($type, $payload, $responseData)->handle();
+    }
+
+    /**
+     * @param array        $payload
+     * @param string|array $allowedKeys
+     *
+     * @return array
+     */
+    protected function payloadFilter(array $payload, string|array $allowedKeys): array
+    {
+        $excludedKeys = ExcludedKey::getExcludedKeys();
+        $filteredPayload = array_diff_key($payload, array_flip($excludedKeys));
+
+        if ($allowedKeys === '*') {
+            return $filteredPayload;
+        }
+
+        if (is_string($allowedKeys)) {
+            $allowedKeys = [$allowedKeys];
+        }
+
+        return array_intersect_key($filteredPayload, array_flip($allowedKeys));
     }
 
     /**
