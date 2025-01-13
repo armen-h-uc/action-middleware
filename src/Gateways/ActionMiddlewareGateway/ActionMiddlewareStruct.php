@@ -200,9 +200,10 @@ class ActionMiddlewareStruct implements Arrayable
      */
     public function setFromResponseData(array $data): static
     {
-        $this->alias = $data['alias'] ?? '';
         $this->projectId = (int)($data['projectId'] ?? 0);
+        $this->alias = $data['alias'] ?? '';
         $this->endpoint = $data['endpoint'] ?? '';
+        $this->active = $data['active'] ?? false;
         $this->type = ActionMiddlewareType::from($data['type']);
         $this->actions = json_decode($data['actions'] ?? '[]', true) ?? [];
         $this->headers = json_decode($data['headers'] ?? '[]', true) ?? [];
