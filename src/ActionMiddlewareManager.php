@@ -74,8 +74,8 @@ class ActionMiddlewareManager
         $config = $middleware->getConfig();
 
         $data = [
-            'payload' => $payload,
-            'config'  => $config,
+            'payload' => (object)$payload,
+            'config'  => (object)$config,
         ];
 
         $responseData = $this->runnerGateway->sendRequest($endpoint, $data, $headers);
