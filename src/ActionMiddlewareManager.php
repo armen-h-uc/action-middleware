@@ -54,7 +54,7 @@ class ActionMiddlewareManager
                 }
             }
         } catch (ActionMiddlewareRunException $e) {
-            $this->createLog($e->getCode(), $e->getMessage());
+            $this->createLog((string)$e->getCode(), $e->getMessage());
         }
     }
 
@@ -103,7 +103,6 @@ class ActionMiddlewareManager
 
             $responseData = $this->runnerGateway->sendRequest($endpoint, $data, $headers);
             $this->responseSchemaValidatorFactory->createSchemaValidatorByType($type)->validate($responseData);
-            $this->responseFactory->createResponseByType($type, $payload, $responseData)->handle();
         } catch (Throwable $e) {
             throw new ActionMiddlewareRunException(
                 "Process data failed: {$e->getMessage()}",
@@ -111,6 +110,8 @@ class ActionMiddlewareManager
                 $e
             );
         }
+
+        $this->responseFactory->createResponseByType($type, $payload, $responseData)->handle();
     }
 
     /**

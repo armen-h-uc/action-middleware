@@ -1,17 +1,17 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "type": "object",
+  "type": "array",
   "properties": {
     "success": {
       "type": "boolean",
       "description": "Operation success status"
     },
     "messages": {
-      "type": "object",
+      "type": "array",
       "description": "Messages related to the operation"
     },
     "data": {
-      "type": "object",
+      "type": "array",
       "description": "Response data payload"
     }
   },

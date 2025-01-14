@@ -40,7 +40,9 @@ abstract class ActionMiddlewareServiceProvider extends IlluminateServiceProvider
     {
         $this->mergeConfigFrom($this->config, 'action-middleware');
 
-        $this->app->bind(ActionMiddlewareGatewayInterface::class, $this->getActionMiddlewareGateway());
+        $this->app->bind(ActionMiddlewareGatewayInterface::class, function (): ActionMiddlewareGatewayInterface {
+            return $this->getActionMiddlewareGateway();
+        });
 
         $this->app->singleton(ActionMiddlewareRunnerGatewayInterface::class, function () {
             return new ActionMiddlewareRunnerGateway(new Client());

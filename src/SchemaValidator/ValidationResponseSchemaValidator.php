@@ -14,7 +14,7 @@ class ValidationResponseSchemaValidator implements SchemaValidatorInterface
 
     public function __construct(Validator $validator)
     {
-        $schemaPath = __DIR__.'/../schemas/actionMiddlewareRunner/validation/response-schema.json';
+        $schemaPath = __DIR__.'/../../schemas/actionMiddlewareRunner/validation/response-schema.json';
 
         $this->schema = json_decode(file_get_contents($schemaPath));
         $this->validator = $validator;

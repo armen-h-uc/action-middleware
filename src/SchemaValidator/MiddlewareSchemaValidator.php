@@ -13,7 +13,7 @@ class MiddlewareSchemaValidator implements SchemaValidatorInterface
 
     public function __construct(protected Validator $validator)
     {
-        $schemaPath = __DIR__.'/../schemas/actionMiddleware/actionMiddleware-schema.json';
+        $schemaPath = __DIR__.'/../../schemas/actionMiddleware/actionMiddleware-schema.json';
 
         $this->schema = json_decode(file_get_contents($schemaPath));
     }

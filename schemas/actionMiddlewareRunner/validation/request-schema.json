@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "type": "object",
+  "type": "array",
   "properties": {
     "payload": {
-      "type": "object"
+      "type": "array"
     },
     "config": {
-      "type": "object"
+      "type": "array"
     }
   },
   "required": ["payload", "config"]
