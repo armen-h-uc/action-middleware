@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Facade;
  *
  * @package App\Facades
  *
- * @method static ActionMiddlewareManager run(ActionType $action, array $args, string|array $allowedKeys = '*' )
+ * @method static ActionMiddlewareManager run(ActionType $action, array $args, array $allowedKeys = [] )
  *
  * @see     \Uc\ActionMiddleware\ActionMiddlewareManager
  * @uses    \Uc\ActionMiddleware\ActionMiddlewareManager::run()

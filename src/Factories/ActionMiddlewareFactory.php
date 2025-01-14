@@ -4,28 +4,29 @@ declare(strict_types=1);
 
 namespace Uc\ActionMiddleware\Factories;
 
-use Uc\ActionMiddleware\Entities\ActionMiddleware;
 use Illuminate\Support\Collection;
+use Uc\ActionMiddleware\Enums\ActionMiddlewareType;
+use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareStruct;
 
 class ActionMiddlewareFactory
 {
     /**
-     * @param array $actionMiddlewareData
+     * @param array $data
      *
-     * @return \Uc\ActionMiddleware\Entities\ActionMiddleware
+     * @return \Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareStruct
      */
-    public static function createFromResponse(array $actionMiddlewareData): ActionMiddleware
+    public static function createFromResponse(array $data): ActionMiddlewareStruct
     {
-        $actionMiddleware = new ActionMiddleware();
+        $actionMiddleware = new ActionMiddlewareStruct();
 
-        $actionMiddleware->setProjectId($actionMiddlewareData['projectId']);
-        $actionMiddleware->setAlias($actionMiddlewareData['alias']);
-        $actionMiddleware->setEndpoint($actionMiddlewareData['endpoint']);
-        $actionMiddleware->setActive($actionMiddlewareData['active'] ?? false);
-        $actionMiddleware->setType($actionMiddlewareData['type']);
-        $actionMiddleware->setActions($actionMiddlewareData['actions'] ?? []);
-        $actionMiddleware->setHeaders($actionMiddlewareData['headers'] ?? []);
-        $actionMiddleware->setConfig($actionMiddlewareData['config'] ?? null);
+        $actionMiddleware->setProjectId((int)($data['projectId'] ?? 0));
+        $actionMiddleware->setAlias($data['alias'] ?? '');
+        $actionMiddleware->setEndpoint($data['endpoint'] ?? '');
+        $actionMiddleware->setActive((bool)$data['active'] ?? false);
+        $actionMiddleware->setType(ActionMiddlewareType::from($data['type']));
+        $actionMiddleware->setActions(json_decode($data['actions'] ?? '[]', true) ?? []);
+        $actionMiddleware->setHeaders(json_decode($data['headers'] ?? '[]', true) ?? []);
+        $actionMiddleware->setConfig(json_decode($data['config'] ?? '[]', true) ?? []);
 
         return $actionMiddleware;
     }
@@ -33,7 +34,7 @@ class ActionMiddlewareFactory
     /**
      * @param array $actionMiddlewares
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection<ActionMiddlewareStruct>
      */
     public static function createCollectionFromResponse(array $actionMiddlewares): Collection
     {

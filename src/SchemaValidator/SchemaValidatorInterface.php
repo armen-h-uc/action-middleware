@@ -1,0 +1,10 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Uc\ActionMiddleware\SchemaValidator;
+
+interface SchemaValidatorInterface
+{
+    public function validate(array $data): bool;
+}

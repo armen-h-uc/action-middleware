@@ -5,19 +5,18 @@ declare(strict_types=1);
 namespace Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway;
 
 use Uc\ActionMiddleware\Enums\ActionMiddlewareType;
-use Illuminate\Contracts\Support\Arrayable;
 
-class ActionMiddlewareStruct implements Arrayable
+class ActionMiddlewareStruct
 {
+    /**
+     * @var int|string
+     */
+    protected int|string $projectId;
+
     /**
      * @var string
      */
     protected string $alias;
-
-    /**
-     * @var int
-     */
-    protected int $projectId;
 
     /**
      * @var string
@@ -35,7 +34,7 @@ class ActionMiddlewareStruct implements Arrayable
     protected array $actions;
 
     /**
-     * @var \Uc\ActionMiddleware\Enums\ActionMiddlewareType
+     * @var ActionMiddlewareType
      */
     protected ActionMiddlewareType $type;
 
@@ -48,6 +47,24 @@ class ActionMiddlewareStruct implements Arrayable
      * @var array
      */
     protected array $config;
+
+    /**
+     * @return int|string
+     */
+    public function getProjectId(): int|string
+    {
+        return $this->projectId;
+    }
+
+    /**
+     * @param int|string $projectId
+     *
+     * @return void
+     */
+    public function setProjectId(int|string $projectId): void
+    {
+        $this->projectId = $projectId;
+    }
 
     /**
      * @return string
@@ -68,24 +85,6 @@ class ActionMiddlewareStruct implements Arrayable
     }
 
     /**
-     * @return int
-     */
-    public function getProjectId(): int
-    {
-        return $this->projectId;
-    }
-
-    /**
-     * @param int $projectId
-     *
-     * @return void
-     */
-    public function setProjectId(int $projectId): void
-    {
-        $this->projectId = $projectId;
-    }
-
-    /**
      * @return string
      */
     public function getEndpoint(): string
@@ -102,7 +101,6 @@ class ActionMiddlewareStruct implements Arrayable
     {
         $this->endpoint = $endpoint;
     }
-
     /**
      * @return bool
      */
@@ -184,48 +182,12 @@ class ActionMiddlewareStruct implements Arrayable
     }
 
     /**
-     * @param array $config
+     * @param array|null $config
      *
      * @return void
      */
-    public function setConfig(array $config): void
+    public function setConfig(?array $config): void
     {
         $this->config = $config;
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return $this
-     */
-    public function setFromResponseData(array $data): static
-    {
-        $this->projectId = (int)($data['projectId'] ?? 0);
-        $this->alias = $data['alias'] ?? '';
-        $this->endpoint = $data['endpoint'] ?? '';
-        $this->active = (bool)$data['active'] ?? false;
-        $this->type = ActionMiddlewareType::from($data['type']);
-        $this->actions = json_decode($data['actions'] ?? '[]', true) ?? [];
-        $this->headers = json_decode($data['headers'] ?? '[]', true) ?? [];
-        $this->config = json_decode($data['config'] ?? '[]', true) ?? [];
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return [
-            'alias'     => $this->alias,
-            'projectId' => $this->projectId,
-            'endpoint'  => $this->endpoint,
-            'active'    => $this->active,
-            'type'      => $this->type,
-            'actions'   => $this->actions,
-            'headers'   => $this->headers,
-            'config'    => $this->config,
-        ];
     }
 }

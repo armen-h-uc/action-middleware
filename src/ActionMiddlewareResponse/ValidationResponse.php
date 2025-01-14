@@ -8,13 +8,35 @@ use Illuminate\Support\Facades\Validator as ValidatorFacade;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Validator;
 
-class ValidationResponse extends ActionMiddlewareResponse
+class ValidationResponse implements ActionMiddlewareResponseInterface
 {
+    /**
+     * @var bool
+     */
+    protected bool $isSuccess = false;
+
+    /**
+     * @var array|mixed
+     */
+    protected array $messages = [];
+
+    /**
+     * @var array
+     */
+    protected array $responseData = [];
+
+    /**
+     * @var array
+     */
+    protected array $inputData = [];
     public function __construct(
         array $inputData,
         array $responseData
     ) {
-        parent::__construct($inputData, $responseData);
+        $this->isSuccess = !!$responseData['success'];
+        $this->messages = $responseData['messages'];
+        $this->responseData = $responseData['data'];
+        $this->inputData = $inputData;
     }
 
 

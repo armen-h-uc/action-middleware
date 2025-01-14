@@ -4,59 +4,47 @@ declare(strict_types=1);
 
 namespace Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway;
 
-use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\BadGatewayException;
-use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\UnauthorizedResponseException;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
+use Uc\ActionMiddleware\Exceptions\BadGatewayException;
+use Uc\ActionMiddleware\Exceptions\UnauthorizedResponseException;
 
 class ActionMiddlewareRunnerGateway implements ActionMiddlewareRunnerGatewayInterface
 {
-    /**
-     * @var \GuzzleHttp\Client
-     */
-    protected Client $httpClient;
-
-    /**
-     * @var array
-     */
-    protected array $headers;
-
-    public function __construct(Client $client)
+    public function __construct(protected Client $httpClient)
     {
-        $this->httpClient = $client;
     }
 
     /**
-     * @param string     $url
-     * @param array      $data
-     * @param array|null $headers
+     * @param string $url
+     * @param array  $data
+     * @param array  $headers
      *
      * @return array
-     * @throws \Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\BadGatewayException
-     * @throws \Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\UnauthorizedResponseException
+     * @throws \Uc\ActionMiddleware\Exceptions\BadGatewayException
      */
-    public function sendRequest(string $url, array $data = [], ?array $headers = []): array
+    public function sendRequest(string $url, array $data, array $headers): array
     {
         try {
             $response = $this->httpClient->request('POST', $url, [
                 'headers' => $headers,
                 'json'    => $data
             ]);
-        } catch (Throwable $e) {
-            throw new BadGatewayException("Request failed: {$e->getMessage()}", Response::HTTP_BAD_GATEWAY, $e);
-        }
 
-        return $this->validateResponse($response);
+            return $this->validateResponse($response);
+        } catch (Throwable $e) {
+            throw new BadGatewayException($e->getMessage());
+        }
     }
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
      *
      * @return array
-     * @throws \Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\BadGatewayException
-     * @throws \Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\Exceptions\UnauthorizedResponseException
+     * @throws \Uc\ActionMiddleware\Exceptions\BadGatewayException
+     * @throws \Uc\ActionMiddleware\Exceptions\UnauthorizedResponseException
      */
     protected function validateResponse(ResponseInterface $response): array
     {

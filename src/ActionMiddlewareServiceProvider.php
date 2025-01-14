@@ -5,20 +5,23 @@ declare(strict_types=1);
 namespace Uc\ActionMiddleware;
 
 use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareGatewayInterface;
-use Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\RedisConnection;
 use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\ActionMiddlewareRunnerGateway;
 use Uc\ActionMiddleware\Gateways\ActionMiddlewareRunnerGateway\ActionMiddlewareRunnerGatewayInterface;
 use GuzzleHttp\Client;
-use Illuminate\Redis\Connectors\PhpRedisConnector;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
-class ActionMiddlewareServiceProvider extends IlluminateServiceProvider
+abstract class ActionMiddlewareServiceProvider extends IlluminateServiceProvider
 {
     /**
      * @var string
      */
     protected string $config = __DIR__.'/../config/action-middleware.php';
+
+
+    /**
+     * @return \Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway\ActionMiddlewareGatewayInterface
+     */
+    abstract protected function getActionMiddlewareGateway(): ActionMiddlewareGatewayInterface;
 
     /**
      * @return void
@@ -37,15 +40,7 @@ class ActionMiddlewareServiceProvider extends IlluminateServiceProvider
     {
         $this->mergeConfigFrom($this->config, 'action-middleware');
 
-        $this->app->bind(ActionMiddlewareGatewayInterface::class, function () {
-            /** @var \Illuminate\Contracts\Config\Repository $configRepository */
-            $configRepository = $this->app->get(ConfigRepository::class);
-
-            $config = $configRepository->get('action-middleware.redis');
-            $connection = (new PhpRedisConnector())->connect($config, []);
-
-            return new RedisConnection($connection, $configRepository->get('action-middleware.setKey'));
-        });
+        $this->app->bind(ActionMiddlewareGatewayInterface::class, $this->getActionMiddlewareGateway());
 
         $this->app->singleton(ActionMiddlewareRunnerGatewayInterface::class, function () {
             return new ActionMiddlewareRunnerGateway(new Client());

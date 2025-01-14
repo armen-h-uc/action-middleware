@@ -7,7 +7,7 @@ namespace Uc\ActionMiddleware\Gateways\ActionMiddlewareGateway;
 interface ActionMiddlewareGatewayInterface
 {
     /**
-     * @return array|null
+     * @return array
      */
-    public function getMiddlewares(): ?array;
+    public function getMiddlewares(): array;
 }
